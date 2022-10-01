@@ -1,16 +1,28 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 
-app.use((req, res, next) => {
-  console.log("in the middleware!"); //middleware runs by default
-  next(); //this allows to go to the next middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get("/add-product", (req, res, next) => {
+  res.send(
+    `<form action="/product" method="POST">
+    <label>product</label>
+    <input type="text" name="title" />
+    <label>Size</label>
+    <input type="number" name="size" />
+    <button type="submit">AddProduct</button></form>`
+  );
 });
 
-app.use((req, res, next) => {
-  console.log("in another middleware");
-  res.send("<h1>Hello From expressJS!</h1>");
-  //   res.send({ key1: "value" });
+app.post("/product", (req, res, next) => {
+  console.log(req.body);
+  res.redirect("/");
+});
+
+app.use("/", (req, res, next) => {
+  res.send("<h1>Hello from express js</h1>");
 });
 
 app.listen(3000);

@@ -1,25 +1,15 @@
 const express = require("express");
 
-const path = require("path");
-const rootDir = require("./../util/path");
+// const path = require("path");
+// const rootDir = require("./../util/path");
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  res.sendFile(path.join(rootDir, "views", "contact.html"));
-});
+//controller
+const contactController = require("../controllers/contactUs");
 
-router.post("/", (req, res, next) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  //both exists as both are required in html page
-  if (name && email) {
-    //best way to do it is not to create a url and just sending html file as per me
-    // res.sendFile(path.join(rootDir, "views", "success.html"));
+router.get("/", contactController.getContact);
 
-    //using url
-    res.redirect("/success");
-  }
-});
+router.post("/", contactController.postContact);
 
 module.exports = router;

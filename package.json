@@ -1,17 +1,31 @@
 {
-  "dependencies": {
-    "body-parser": "^1.20.0",
-    "express": "^4.18.1",
-    "nodemon": "^2.0.20"
-  },
-  "name": "expressjs",
+  "name": "nodejs-complete-guide",
   "version": "1.0.0",
+  "description": "Complete Node.js Guide",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
   },
-  "author": "",
+  "author": "Maximilian Schwarzmüller",
   "license": "ISC",
-  "description": ""
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^3.1.8",
+    "express": "^4.16.3",
+    "express-handlebars": "^6.0.6",
+    "pug": "^3.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roshinys/expressjs_.git"
+  },
+  "bugs": {
+    "url": "https://github.com/roshinys/expressjs_/issues"
+  },
+  "homepage": "https://github.com/roshinys/expressjs_#readme"
 }

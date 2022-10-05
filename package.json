@@ -19,13 +19,5 @@
     "express": "^4.16.3",
     "express-handlebars": "^6.0.6",
     "pug": "^3.0.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/roshinys/expressjs_.git"
-  },
-  "bugs": {
-    "url": "https://github.com/roshinys/expressjs_/issues"
-  },
-  "homepage": "https://github.com/roshinys/expressjs_#readme"
+  }
 }

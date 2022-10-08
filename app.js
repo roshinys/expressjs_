@@ -10,16 +10,8 @@ const errorController = require("./controllers/error");
 
 const app = express();
 
-//database
-const db = require("./util/database");
-// console.log(db);
-// db.execute("SELECT * FROM products")
-//   .then((result) => {
-//     console.log(result[0]);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
+//database using sequalize now
+const sequalize = require("./util/database");
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -35,4 +27,12 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-app.listen(process.env.PORT);
+sequalize
+  .sync()
+  .then((result) => {
+    // console.log(result);
+    app.listen(process.env.PORT);
+  })
+  .catch((err) => {
+    console.log(err);
+  });

@@ -13,6 +13,13 @@ const app = express();
 //database
 const db = require("./util/database");
 // console.log(db);
+// db.execute("SELECT * FROM products")
+//   .then((result) => {
+//     console.log(result[0]);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 app.set("view engine", "ejs");
 app.set("views", "views");

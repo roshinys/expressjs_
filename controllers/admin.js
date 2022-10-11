@@ -13,20 +13,23 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl;
   const price = req.body.price;
   const description = req.body.description;
-  Product.create({
-    title: title,
-    imageUrl: imageUrl,
-    description: description,
-    price: price,
-  })
+  //use sequalize instance
+  req.user
+    .createProduct({
+      title: title,
+      imageUrl: imageUrl,
+      description: description,
+      price: price,
+    })
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       console.log("succesfully added product to database");
       res.redirect("/admin/products");
     })
     .catch((err) => {
       console.log(err);
     });
+  //  Product.create() can also be used just set userId as req.user.id
 };
 
 exports.getEditProduct = (req, res, next) => {
@@ -35,8 +38,11 @@ exports.getEditProduct = (req, res, next) => {
     return res.redirect("/");
   }
   const prodId = req.params.productId;
-  Product.findByPk(prodId)
-    .then((product) => {
+  //can use findByPy method too  => Product.findByPk(prodId)
+  req.user
+    .getProducts({ Where: { id: prodId } })
+    .then((products) => {
+      const product = products[0];
       // console.log(product[0]);
       if (!product) {
         return res.redirect("/");

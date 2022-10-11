@@ -16,6 +16,8 @@ const sequalize = require("./util/database");
 //models
 const Product = require("./models/product");
 const User = require("./models/user");
+const Cart = require("./models/cart");
+const CartItem = require("./models/cart-item");
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -45,12 +47,19 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+//user has one to many with product
 Product.belongsTo(User, {
   foreignKey: "userId",
   constraints: true,
   onDelete: "CASCADE",
 });
 User.hasMany(Product);
+//user has one to one relationship with cart
+User.hasOne(Cart);
+Cart.belongsTo(User);
+//product and cart have many to many relationships so created a new model CartItem
+Product.belongsToMany(Cart, { through: CartItem });
+Cart.belongsToMany(Product, { through: CartItem });
 
 sequalize
   // .sync({ force: true })
@@ -69,8 +78,16 @@ sequalize
     }
     return user;
   })
-  .then((user) => {
+  .then(async (user) => {
     // console.log(user);
+    let cart = await user.getCart();
+    if (cart) {
+      return cart;
+    }
+    return await user.createCart();
+  })
+  .then((cart) => {
+    // console.log(cart);
     app.listen(process.env.PORT);
   })
   .catch((err) => {

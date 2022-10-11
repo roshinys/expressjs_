@@ -38,7 +38,7 @@ exports.getEditProduct = (req, res, next) => {
     return res.redirect("/");
   }
   const prodId = req.params.productId;
-  //can use findByPy method too  => Product.findByPk(prodId)
+  //can use findByPk method too  => Product.findByPk(prodId)
   req.user
     .getProducts({ Where: { id: prodId } })
     .then((products) => {
